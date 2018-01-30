@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements AppListAdapter.On
 
 
     private RecyclerView appListRv;
+    private SearchView searchAppSv;
+    private AppListAdapter appListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +31,27 @@ public class MainActivity extends AppCompatActivity implements AppListAdapter.On
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
         final Drawable wallpaperDrawable = wallpaperManager.getDrawable();
 
-        FrameLayout mainLayout = findViewById(R.id.fl_main_layout);//Substitute with your layout
+        LinearLayout mainLayout = findViewById(R.id.ll_main_layout);
         mainLayout.setBackground(wallpaperDrawable);
         appListRv = findViewById(R.id.rv_app_list);
+        searchAppSv = findViewById(R.id.sv_app_list);
         populateAppList();
+        setupSearchView();
+    }
+
+    private void setupSearchView() {
+        searchAppSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                appListAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     private void populateAppList() {
@@ -49,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements AppListAdapter.On
             app.setIcon(resolveInfo.activityInfo.loadIcon(manager));
             apps.add(app);
         }
-        AppListAdapter adapter = new AppListAdapter();
-        adapter.addAppList(apps);
-        adapter.setAppClickedListener(this);
-        appListRv.setAdapter(adapter);
+        appListAdapter = new AppListAdapter();
+        appListAdapter.addAppList(apps);
+        appListAdapter.setAppClickedListener(this);
+        appListRv.setAdapter(appListAdapter);
 
     }
 

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Fullscreen" parent="@style/Theme.AppCompat.Light">
+    <style name="Fullscreen" parent="@style/Theme.AppCompat">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.demo.shubhamdhabhai.launcherdemo.MainActivity"
-    android:id="@+id/fl_main_layout">
+    android:id="@+id/ll_main_layout"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/sv_app_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_app_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-</FrameLayout>
+</LinearLayout>
